@@ -1,0 +1,51 @@
+{
+	"name": "DelimitedText1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Medals",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "https://github.com/Daydreamofpeach/Assessment_3_Azure_Project_Codes/blob/main/Medals.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Rank",
+				"type": "String"
+			},
+			{
+				"name": "TeamCountry",
+				"type": "String"
+			},
+			{
+				"name": "Gold",
+				"type": "String"
+			},
+			{
+				"name": "Silver",
+				"type": "String"
+			},
+			{
+				"name": "Bronze",
+				"type": "String"
+			},
+			{
+				"name": "Total",
+				"type": "String"
+			},
+			{
+				"name": "Rank by Total",
+				"type": "String"
+			}
+		]
+	}
+}

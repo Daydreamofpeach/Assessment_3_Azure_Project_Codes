@@ -1,0 +1,13 @@
+{
+	"name": "Coaches",
+	"properties": {
+		"description": "coaches linked service conenction",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://raw.githubusercontent.com/Daydreamofpeach/Assessment_3_Azure_Project_Codes/main/Coaches.csv",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"name": "olympicdatafactoryyoobee",
+	"location": "australiasoutheast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "22d4bf04-f21c-4c0e-8da3-da39aeaff902",
+		"tenantId": "d74844ae-6e69-467c-816e-01d6189982ab"
+	}
+}

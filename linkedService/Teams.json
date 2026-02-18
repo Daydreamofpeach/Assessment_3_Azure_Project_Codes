@@ -1,0 +1,13 @@
+{
+	"name": "Teams",
+	"properties": {
+		"description": "Teams link service connection",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://raw.githubusercontent.com/Daydreamofpeach/Assessment_3_Azure_Project_Codes/main/Teams.csv",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

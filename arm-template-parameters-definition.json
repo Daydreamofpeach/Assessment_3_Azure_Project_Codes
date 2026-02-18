@@ -1,0 +1,84 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "defaultValue": "Ethan-Olympic-ADF"
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "australiacentral"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.DataFactory/factories",
+            "apiVersion": "2018-06-01",
+            "name": "[parameters('factoryName')]",
+            "location": "[parameters('location')]",
+            "identity": { "type": "SystemAssigned" }
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/linkedServices",
+            "apiVersion": "2018-06-01",
+            "name": "[concat(parameters('factoryName'), '/LS_ADLS_Gen2')]",
+            "properties": {
+                "type": "AzureBlobFS",
+                "typeProperties": {
+                    "url": "https://yoobeecloudstorage.dfs.core.windows.net"
+                }
+            },
+            "dependsOn": [ "[parameters('factoryName')]" ]
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/datasets",
+            "apiVersion": "2018-06-01",
+            "name": "[concat(parameters('factoryName'), '/DS_Sink_Raw')]",
+            "properties": {
+                "linkedServiceName": {
+                    "referenceName": "LS_ADLS_Gen2",
+                    "type": "LinkedServiceReference"
+                },
+                "type": "Binary",
+                "typeProperties": {
+                    "location": {
+                        "type": "AzureBlobFSLocation",
+                        "container": "raw"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[concat(parameters('factoryName'), '/linkedServices/LS_ADLS_Gen2')]"
+            ]
+        },
+        {
+            "type": "Microsoft.DataFactory/factories/pipelines",
+            "apiVersion": "2018-06-01",
+            "name": "[concat(parameters('factoryName'), '/PL_Ingest_Olympic_Data')]",
+            "properties": {
+                "activities": [
+                    {
+                        "name": "CopyOlympicFiles",
+                        "type": "Copy",
+                        "typeProperties": {
+                            "source": { "type": "BinarySource" },
+                            "sink": { "type": "BinarySink" }
+                        },
+                        "inputs": [],
+                        "outputs": [
+                            {
+                                "referenceName": "DS_Sink_Raw",
+                                "type": "DatasetReference"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "dependsOn": [
+                "[concat(parameters('factoryName'), '/datasets/DS_Sink_Raw')]"
+            ]
+        }
+    ]
+}
